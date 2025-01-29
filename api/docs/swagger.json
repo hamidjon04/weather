@@ -1,0 +1,90 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Weather",
+        "contact": {},
+        "version": "1.0"
+    },
+    "paths": {
+        "/register": {
+            "post": {
+                "description": "Foydalanuvchi ma'lumotlarini qabul qilib, yangi akkaunt yaratadi",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Ro'yxatdan o'tish",
+                "parameters": [
+                    {
+                        "description": "Ro'yxatdan o'tish ma'lumotlari",
+                        "name": "register",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.RegisterReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Muvaffaqiyatli ro'yxatdan o'tish",
+                        "schema": {
+                            "$ref": "#/definitions/model.RegisterResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Noto'g'ri so'rov formati",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Server ichki xatosi",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "model.RegisterReq": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "surname": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.RegisterResp": {
+            "type": "object",
+            "properties": {
+                "access_token": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
+}

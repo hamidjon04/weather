@@ -1,0 +1,58 @@
+definitions:
+  model.RegisterReq:
+    properties:
+      name:
+        type: string
+      password:
+        type: string
+      surname:
+        type: string
+      username:
+        type: string
+    type: object
+  model.RegisterResp:
+    properties:
+      access_token:
+        type: string
+    type: object
+info:
+  contact: {}
+  title: Weather
+  version: "1.0"
+paths:
+  /register:
+    post:
+      consumes:
+      - application/json
+      description: Foydalanuvchi ma'lumotlarini qabul qilib, yangi akkaunt yaratadi
+      parameters:
+      - description: Ro'yxatdan o'tish ma'lumotlari
+        in: body
+        name: register
+        required: true
+        schema:
+          $ref: '#/definitions/model.RegisterReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Muvaffaqiyatli ro'yxatdan o'tish
+          schema:
+            $ref: '#/definitions/model.RegisterResp'
+        "400":
+          description: Noto'g'ri so'rov formati
+          schema:
+            type: string
+        "500":
+          description: Server ichki xatosi
+          schema:
+            type: string
+      summary: Ro'yxatdan o'tish
+      tags:
+      - Auth
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
