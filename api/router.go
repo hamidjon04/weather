@@ -21,6 +21,7 @@ func Router(service service.Service, log *slog.Logger) *gin.Engine {
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	h := handler.NewHandler(service, log)
 	router.POST("/register", h.Register)
+	router.POST("/login", h.Login)
 
 	return router
 }

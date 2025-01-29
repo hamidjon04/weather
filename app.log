@@ -1,0 +1,21 @@
+{"time":"2025-01-29T23:23:55.456313399+05:00","level":"ERROR","msg":"Error is get user: sql: Scan error on column index 0, name \"id\": destination not a pointer"}
+{"time":"2025-01-29T23:23:55.456344486+05:00","level":"ERROR","msg":"User is not registration: sql: Scan error on column index 0, name \"id\": destination not a pointer"}
+{"time":"2025-01-29T23:23:55.45634877+05:00","level":"ERROR","msg":"Error is login: user is not registration"}
+{"time":"2025-01-29T23:23:58.323326914+05:00","level":"ERROR","msg":"Error is get user: sql: Scan error on column index 0, name \"id\": destination not a pointer"}
+{"time":"2025-01-29T23:23:58.323360101+05:00","level":"ERROR","msg":"User is not registration: sql: Scan error on column index 0, name \"id\": destination not a pointer"}
+{"time":"2025-01-29T23:23:58.323367206+05:00","level":"ERROR","msg":"Error is login: user is not registration"}
+{"time":"2025-01-29T23:24:26.060005776+05:00","level":"ERROR","msg":"Error is doing registration: pq: duplicate key value violates unique constraint \"users_username_key\""}
+{"time":"2025-01-29T23:24:26.060036498+05:00","level":"ERROR","msg":"Error is registration at service: pq: duplicate key value violates unique constraint \"users_username_key\""}
+{"time":"2025-01-29T23:24:26.060043797+05:00","level":"ERROR","msg":"Error is registration: pq: duplicate key value violates unique constraint \"users_username_key\""}
+{"time":"2025-01-29T23:25:26.096783885+05:00","level":"ERROR","msg":"Error is saving token: pq: invalid input syntax for type timestamp: \"2025-01-30 00:25:26.096011397 +0500 +05 m=+3602.850246199\""}
+{"time":"2025-01-29T23:25:26.096834731+05:00","level":"ERROR","msg":"Error is save token: pq: invalid input syntax for type timestamp: \"2025-01-30 00:25:26.096011397 +0500 +05 m=+3602.850246199\""}
+{"time":"2025-01-29T23:25:26.096854851+05:00","level":"ERROR","msg":"Error is registration: pq: invalid input syntax for type timestamp: \"2025-01-30 00:25:26.096011397 +0500 +05 m=+3602.850246199\""}
+{"time":"2025-01-29T23:27:43.092372538+05:00","level":"ERROR","msg":"Error is doing registration: pq: duplicate key value violates unique constraint \"users_username_key\""}
+{"time":"2025-01-29T23:27:43.092405168+05:00","level":"ERROR","msg":"Error is registration at service: pq: duplicate key value violates unique constraint \"users_username_key\""}
+{"time":"2025-01-29T23:27:43.092408584+05:00","level":"ERROR","msg":"Error is registration: pq: duplicate key value violates unique constraint \"users_username_key\""}
+{"time":"2025-01-29T23:28:08.987791239+05:00","level":"ERROR","msg":"Error is get user: sql: Scan error on column index 0, name \"id\": destination not a pointer"}
+{"time":"2025-01-29T23:28:08.987814202+05:00","level":"ERROR","msg":"User is not registration: sql: Scan error on column index 0, name \"id\": destination not a pointer"}
+{"time":"2025-01-29T23:28:08.987818315+05:00","level":"ERROR","msg":"Error is login: user is not registration"}
+{"time":"2025-01-29T23:29:41.927824223+05:00","level":"ERROR","msg":"Error is doing registration: pq: duplicate key value violates unique constraint \"users_username_key\""}
+{"time":"2025-01-29T23:29:41.927875663+05:00","level":"ERROR","msg":"Error is registration at service: pq: duplicate key value violates unique constraint \"users_username_key\""}
+{"time":"2025-01-29T23:29:41.927882373+05:00","level":"ERROR","msg":"Error is registration: pq: duplicate key value violates unique constraint \"users_username_key\""}

@@ -21,3 +21,13 @@ type GetTokenResp struct {
 	Token     string `json:"token"`
 	ExpiresAt string `json:"expires_at"`
 }
+
+type LoginReq struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
+type GetUserResp struct {
+	Id       string `json:"id"`
+	Password string `json:"password"`
+}

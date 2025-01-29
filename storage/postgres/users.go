@@ -7,12 +7,14 @@ import (
 	"weather/pkg/model"
 
 	"github.com/google/uuid"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type UsersRepo interface {
 	Register(req *model.RegisterReq) (string, error)
 	CreateToken(req *model.CreateTokenReq) (bool, error)
 	GetToken(userId string) (*model.GetTokenResp, error)
+	GetUser(username string) (*model.GetUserResp, error)
 }
 
 type usersImpl struct {
@@ -29,12 +31,17 @@ func NewUsersRepo(db *sql.DB, log *slog.Logger) UsersRepo {
 
 func (U *usersImpl) Register(req *model.RegisterReq) (string, error) {
 	id := uuid.NewString()
+	pass, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost)
+	if err != nil{
+		U.Log.Error(fmt.Sprintf("Error is hashing password: %v", err))
+		return "", err
+	}
 	query := `
 				INSERT INTO users(
 					id, name, surname, username, password)
 				VALUES
 					($1, $2, $3, $4, $5)`
-	_, err := U.DB.Exec(query, id, req.Name, req.Surname, req.Username, req.Password)
+	_, err = U.DB.Exec(query, id, req.Name, req.Surname, req.Username, pass)
 	if err != nil {
 		U.Log.Error(fmt.Sprintf("Error is doing registration: %v", err))
 		return "", err
@@ -44,10 +51,14 @@ func (U *usersImpl) Register(req *model.RegisterReq) (string, error) {
 
 func (U *usersImpl) CreateToken(req *model.CreateTokenReq) (bool, error) {
 	query := `
-				INSERT INTO tokens(
+				INSERT INTO tokens (
 					user_id, token, expires_at)
-				VALUES
-					($1, $2, $3)`
+				VALUES (
+					$1, $2, $3)
+				ON CONFLICT 
+					(user_id) 
+				DO UPDATE SET 
+    				token = EXCLUDED.token, expires_at = EXCLUDED.expires_at;`
 	_, err := U.DB.Exec(query, req.UserId, req.Token, req.ExpiresAt)
 	if err != nil {
 		U.Log.Error(fmt.Sprintf("Error is saving token: %v", err))
@@ -71,4 +82,21 @@ func (U *usersImpl) GetToken(userId string) (*model.GetTokenResp, error) {
 		return nil, err
 	}
 	return &resp, nil
+}
+
+func (U *usersImpl) GetUser(username string) (*model.GetUserResp, error){
+	req := model.GetUserResp{}
+	query := `
+				SELECT 
+					id, password
+				FROM 
+					users
+				WHERE 
+					username = $1`
+	err := U.DB.QueryRow(query, username).Scan(&req.Id, &req.Password)
+	if err != nil{
+		U.Log.Error(fmt.Sprintf("Error is get user: %v", err))
+		return nil, err
+	}
+	return &req, nil
 }

@@ -1,4 +1,11 @@
 definitions:
+  model.LoginReq:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
   model.RegisterReq:
     properties:
       name:
@@ -20,6 +27,36 @@ info:
   title: Weather
   version: "1.0"
 paths:
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: Foydalanuvchi login va parol orqali tizimga kirishi
+      parameters:
+      - description: Login ma'lumotlari
+        in: body
+        name: login
+        required: true
+        schema:
+          $ref: '#/definitions/model.LoginReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Muvaffaqiyatli kirish
+          schema:
+            $ref: '#/definitions/model.RegisterResp'
+        "400":
+          description: Noto'g'ri so'rov formati
+          schema:
+            type: string
+        "500":
+          description: Server xatosi
+          schema:
+            type: string
+      summary: Foydalanuvchi tizimga kirishi
+      tags:
+      - Auth
   /register:
     post:
       consumes:

@@ -6,6 +6,52 @@
         "version": "1.0"
     },
     "paths": {
+        "/login": {
+            "post": {
+                "description": "Foydalanuvchi login va parol orqali tizimga kirishi",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Foydalanuvchi tizimga kirishi",
+                "parameters": [
+                    {
+                        "description": "Login ma'lumotlari",
+                        "name": "login",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.LoginReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Muvaffaqiyatli kirish",
+                        "schema": {
+                            "$ref": "#/definitions/model.RegisterResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Noto'g'ri so'rov formati",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Server xatosi",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/register": {
             "post": {
                 "description": "Foydalanuvchi ma'lumotlarini qabul qilib, yangi akkaunt yaratadi",
@@ -54,6 +100,17 @@
         }
     },
     "definitions": {
+        "model.LoginReq": {
+            "type": "object",
+            "properties": {
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
         "model.RegisterReq": {
             "type": "object",
             "properties": {

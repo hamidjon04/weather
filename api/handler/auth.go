@@ -35,3 +35,30 @@ func(H *Handler) Register(c *gin.Context){
 	}
 	c.JSON(201, resp)
 }
+
+// @Summary Foydalanuvchi tizimga kirishi
+// @Description Foydalanuvchi login va parol orqali tizimga kirishi
+// @Tags Auth
+// @Accept json
+// @Produce json
+// @Param login body model.LoginReq true "Login ma'lumotlari"
+// @Success 201 {object} model.RegisterResp "Muvaffaqiyatli kirish"
+// @Failure 400 {string} string "Noto'g'ri so'rov formati"
+// @Failure 500 {string} string "Server xatosi"
+// @Router /login [post]
+func (H *Handler) Login(c *gin.Context){
+	req := model.LoginReq{}
+	err := c.ShouldBindJSON(&req)
+	if err != nil{
+		c.JSON(http.StatusBadRequest, "So'rov uchun kitirilgan ma'lumotlar noto'g'ri")
+		H.Log.Error(fmt.Sprintf("Error is read request body: %v", err))
+		return
+	}
+	resp, err := H.Service.Login(&req)
+	if err != nil{
+		c.JSON(http.StatusInternalServerError, err)
+		H.Log.Error(fmt.Sprintf("Error is login: %v", err))
+		return
+	}
+	c.JSON(201, resp)
+}
